@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+@theme {
+  /* الخطوط */
+  --font-lv: "Louis Vuitton Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* الألوان الدلالية */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #f8f8f8;
+  --color-text-tertiary: #727272;
+  --color-surface-base: #000000;
+  --color-surface-muted: #ffffff;
+
+  /* المسافات المخصصة */
+  --spacing-4_5: 13px;
+  --spacing-19: 77.32px;
+
+  /* الحواف والتأثيرات */
+  --radius-lv: 40px;
+  --duration-instant: 300ms;
+}
+
+body {
+  font-family: var(--font-lv);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-muted);
+}
