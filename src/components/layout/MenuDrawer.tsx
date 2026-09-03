@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { X } from 'lucide-react';
 
 interface MenuDrawerProps {
@@ -7,81 +7,44 @@ interface MenuDrawerProps {
 }
 
 export const MenuDrawer: React.FC<MenuDrawerProps> = ({ isOpen, onClose }) => {
-    const [highContrast, setHighContrast] = useState(false);
-
-    if (!isOpen) return null;
-
     return (
-        <div className="fixed inset-0 z-50 flex">
-            {/* Backdrop overlay */}
+        <div
+            className={`fixed inset-0 z-50 transition-opacity duration-300 ${
+                isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            }`}
+        >
+            {/* Dimmed Backdrop */}
             <div
-                className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
                 onClick={onClose}
+                className="absolute inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity"
             />
 
-            {/* Drawer Content */}
-            <div className="relative w-full max-w-[420px] bg-white h-full shadow-2xl z-10 flex flex-col justify-between overflow-y-auto px-8 py-6 text-[#1a1a1a]">
-
-                {/* Top: Close Button */}
-                <div>
+            {/* Slide-in Panel from Left */}
+            <div
+                className={`relative w-full max-w-[420px] h-full bg-white text-black shadow-2xl flex flex-col p-6 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    isOpen ? 'translate-x-0' : '-translate-x-full'
+                }`}
+            >
+                <div className="flex items-center justify-between pb-6 border-b border-neutral-100">
+                    <span className="text-xs font-semibold tracking-widest uppercase text-neutral-400">Menu</span>
                     <button
                         type="button"
                         onClick={onClose}
-                        className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity mb-8"
+                        className="p-1 hover:opacity-60 transition-opacity cursor-pointer"
+                        aria-label="Close"
                     >
-                        <X size={16} strokeWidth={1.5} />
-                        <span>Close</span>
-                    </button>
-
-                    {/* Main Primary Links */}
-                    <div className="space-y-4 text-lg font-light tracking-wide mb-8">
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Women</a>
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Men</a>
-                    </div>
-
-                    {/* Categories Links */}
-                    <div className="space-y-3.5 text-[15px] font-light tracking-wide text-neutral-800 mb-8">
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Monogram Anniversary</a>
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Gifts and Personalization</a>
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Bags and Small Leather Goods</a>
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Perfumes and Beauty</a>
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Jewelry</a>
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Watches</a>
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Trunks, Travel and Home</a>
-                    </div>
-
-                    {/* Brand & Services */}
-                    <div className="space-y-3.5 text-[15px] font-light tracking-wide text-neutral-800 mb-8">
-                        <a href="#" className="block hover:opacity-60 transition-opacity">Services</a>
-                        <a href="#" className="block hover:opacity-60 transition-opacity">The Maison Louis Vuitton</a>
-                    </div>
-
-                    {/* Secondary Links */}
-                    <div className="space-y-3 text-xs tracking-wider text-neutral-600">
-                        <a href="#" className="block hover:opacity-80 transition-opacity">Find a Store</a>
-                        <a href="#" className="block hover:opacity-80 transition-opacity">International (English)</a>
-                        <a href="#" className="block hover:opacity-80 transition-opacity">Sustainability</a>
-                    </div>
-                </div>
-
-                {/* Bottom: Accessibility Switch */}
-                <div className="pt-8 mt-8 border-t border-neutral-100 flex items-center justify-between text-xs tracking-wider text-neutral-700">
-                    <span>Accessibility: Enhanced contrast</span>
-                    <button
-                        type="button"
-                        role="switch"
-                        aria-checked={highContrast}
-                        onClick={() => setHighContrast(!highContrast)}
-                        className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${
-                            highContrast ? 'bg-black' : 'bg-neutral-300'
-                        }`}
-                    >
-                        <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-300 ${
-                            highContrast ? 'translate-x-5' : 'translate-x-0'
-                        }`} />
+                        <X size={20} strokeWidth={1.2} />
                     </button>
                 </div>
 
+                <nav className="mt-8 flex flex-col gap-6 text-sm tracking-widest uppercase font-light">
+                    <a href="#" className="hover:text-neutral-500 transition-colors">New</a>
+                    <a href="#" className="hover:text-neutral-500 transition-colors">Bags</a>
+                    <a href="#" className="hover:text-neutral-500 transition-colors">Women</a>
+                    <a href="#" className="hover:text-neutral-500 transition-colors">Men</a>
+                    <a href="#" className="hover:text-neutral-500 transition-colors">Jewelry</a>
+                    <a href="#" className="hover:text-neutral-500 transition-colors">Perfumes</a>
+                </nav>
             </div>
         </div>
     );

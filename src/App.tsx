@@ -6,7 +6,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'wishlist'>('home');
 
   if (currentPage === 'wishlist') {
-    return <Wishlist onBackToHome={() => setCurrentPage('home')} />;
+    return <Wishlist onBackToHome={() => setCurrentPage('home')}  />;
   }
 
   return <Home onNavigateWishlist={() => setCurrentPage('wishlist')} />;
